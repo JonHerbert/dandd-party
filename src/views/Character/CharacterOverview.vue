@@ -1,33 +1,30 @@
 <template>
-  <div>
-    <ul
-      class="list-unstyled components"
-      :v-for="
-        (route, index) in
-        $router.options.routes.filter((x) => x.path == $route.matched[0].path)
-      "
-    >
-      <li :v-for="child in route.children">
-        <a class="nav-item" :key="index">
-          <router-link
-            :to="route.path + '/' + child.path"
-            exact-active-class="active"
-          >
-            <icon :icon="route.icon" class="mr-2" /><span>{{
-              child.name
-            }}</span>
-          </router-link>
-        </a>
+  <div id="navbar">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" v-for="route in routes" :key="route">
+        <router-link :to="route.path" class="nav-link" active-class="active">
+          {{ route.name }}
+        </router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-
+import { createRouter,createWebHistory} from 'vue-router'
 export default {
+  name: 'Overview',
   setup () {
-    console.log($router.options.route)
+    const routes = function () {
+      var paths = []
+      for (var i in this.$router.options.routes[2].children) {
+        var route = this.$router.options.routes[2].children[i]
+        paths.push(route)
+      }
+    }
+    return {
+      routes
+    }
   }
 }
 </script>

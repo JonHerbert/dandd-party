@@ -15,7 +15,7 @@
     "vue": "^3.0.0",
     "vue-draggable-next": "^2.1.1",
     "vue-float-menu": "^1.9.1",
-    "vue-router": "^4.0.0-0",
+    "vue-router": "^4.0.12",
     "vue3-tabs": "^0.1.12",
     "vue3-touch-events": "^4.1.0",
     "vuex": "^4.0.0-0",
