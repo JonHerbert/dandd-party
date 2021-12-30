@@ -14,38 +14,38 @@ const routes = [
   },
   {
     path: '/characteroverview',
-    name: 'CharacterOverview',
+    name: 'Character Overview',
     component: () => import(/* webpackChunkName: "charOver" */ '../views/Character/CharacterOverview.vue'),
     props: true,
     children: [
       {
         path: '/characterinventory',
-        name: 'CharacterInventory',
+        name: 'Character Inventory',
         component: () => import(/* webpackChunkName: "charInv" */ '../views/Character/CharacterInventory.vue')
       },
       {
         path: '/charactersheet',
-        name: 'CharacterSheet',
+        name: 'Character Sheet',
         component: () => import(/* webpackChunkName: "charSheet" */ '../views/Character/CharacterSheet.vue')
       },
       {
         path: '/characterstats',
-        name: 'CharacterStats',
+        name: 'Character Stats',
         component: () => import(/* webpackChunkName: "charStats" */ '../views/Character/CharacterStats.vue')
       },
       {
         path: '/characterproficiencies',
-        name: 'CharacterProficiencies',
+        name: 'Character Proficiencies',
         component: () => import(/* webpackChunkName: "charProf" */ '../views/Character/CharacterProficiencies.vue')
       },
       {
         path: '/characternotespublic',
-        name: 'CharacterNotesPublic',
+        name: 'Character Notes Public',
         component: () => import(/* webpackChunkName: "charNotesPublic" */ '../views/Character/CharacterNotesPublic.vue')
       },
       {
         path: '/characternotesprivate',
-        name: 'CharacterNotesPrivate',
+        name: 'Character Notes Private',
         component: () => import(/* webpackChunkName: "charNotesPrivate" */ '../views/Character/CharacterNotesPrivate.vue')
       }
     ]

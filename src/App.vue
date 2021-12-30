@@ -1,14 +1,17 @@
 <template>
   <w-app>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/characterinventory">Character Inventory</router-link> |
-      <router-link to="/characteroverview">Character Overview</router-link>
-    </div>
-    <router-view />
+    <Navigator />
   </w-app>
 </template>
+
+<script>
+import Navigator from './components/Navigator'
+export default {
+  components: {
+    Navigator
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
