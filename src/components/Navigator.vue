@@ -1,16 +1,49 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>
-    <router-link to="/about">About</router-link>
-    <router-link to="/characteroverview">Character Overview</router-link>
-    <ul class="navbar-nav mr-auto flex">
-      <li class="nav-item" v-for="route in routes" :key="route.path">
+  <w-button class="ma1" @click="openDrawer = 'left'" outline> Menu </w-button>
+
+  <w-drawer v-model="openDrawer" left fit-content>
+    <w-button
+      @click="openDrawer = false"
+      sm
+      outline
+      round
+      absolute
+      icon="wi-cross"
+    >
+    </w-button>
+    <ul class="navbar-nav mr-auto flex" id="nav">
+      <li
+        class="nav-item"
+        v-for="route in router.options.routes"
+        :key="route.path"
+      >
         <router-link :to="route" class="nav-link" active-class="active">
-          {{ route.name }}
+          <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
+          >{{ route.name }}
         </router-link>
+        <ul v-if="route.path == '/characteroverview'">
+          <li
+            class="nav-item"
+            v-for="route in characterRoutes"
+            :key="route.path"
+          >
+            <router-link :to="route" class="nav-link" active-class="active">
+              <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
+              >{{ route.name }}
+            </router-link>
+          </li>
+        </ul>
+        <ul v-if="route.path == '/dungeonmasteroverview'">
+          <li class="nav-item" v-for="route in dmRoutes" :key="route.path">
+            <router-link :to="route" class="nav-link" active-class="active">
+              <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
+              >{{ route.name }}
+            </router-link>
+          </li>
+        </ul>
       </li>
     </ul>
-  </div>
+  </w-drawer>
   <router-view />
 </template>
 
@@ -21,35 +54,45 @@ export default {
   name: 'Overview',
   setup () {
     const router = useRouter()
-    const routes = router.options.routes[2].children
+    const characterRoutes = router.options.routes[2].children
+    const dmRoutes = router.options.routes[8].children
+    console.log(router)
     return {
-      routes
+      router,
+      characterRoutes,
+      dmRoutes
+    }
+  },
+  data: () => ({
+    openDrawer: false
+  }),
+  computed: {
+    position () {
+      return this.openDrawer || 'right'
     }
   }
 }
 </script>
 <style>
-#nav {
-  padding: 30px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-div#nav ul {
+#nav,
+#nav ul {
   list-style: none;
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-left: 10px;
+  padding: 0;
   text-align: left;
 }
-div#nav ul li,
-div#nav a {
-  padding: 5px 0px;
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+  width: 100%;
+  border-bottom: 1px solid #0001;
+  padding: 10px 20px;
+  display: inline-block;
+}
+li.nav-item {
+  width: 100%;
 }
 </style>
