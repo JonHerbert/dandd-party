@@ -54,9 +54,8 @@ export default {
   name: 'Overview',
   setup () {
     const router = useRouter()
-    const characterRoutes = router.options.routes[2].children
-    const dmRoutes = router.options.routes[8].children
-    console.log(router)
+    const characterRoutes = router.options.routes[3].children
+    const dmRoutes = router.options.routes[9].children
     return {
       router,
       characterRoutes,
@@ -94,5 +93,8 @@ export default {
 }
 li.nav-item {
   width: 100%;
+}
+.w-drawer {
+  overflow-y: scroll;
 }
 </style>

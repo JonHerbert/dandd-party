@@ -15,6 +15,12 @@ const routes = [
     icon: 'fas fa-dice-d20'
   },
   {
+    path: '/calendar',
+    name: 'Calendar',
+    component: () => import(/* webpackChunkName: "calendar" */ '../views/Calendar.vue'),
+    icon: 'fas fa-dice-d20'
+  },
+  {
     path: '/characteroverview',
     name: 'Character Overview',
     component: () => import(/* webpackChunkName: "charOver" */ '../views/Character/CharacterOverview.vue'),
