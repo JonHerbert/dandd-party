@@ -120,6 +120,18 @@ const routes = [
         icon: 'fa fa-home'
       }
     ]
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: () => import(/* webpackChunkName: "signup" */ '../views/Signup.vue'),
+    icon: 'fa fa-home'
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+    icon: 'fa fa-home'
   }
 ]
 

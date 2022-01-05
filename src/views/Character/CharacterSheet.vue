@@ -9,31 +9,45 @@
     </w-input>
     <w-input shadow class="mb3 xs4 pa1" label="Class" placeholder="Class">
     </w-input>
-    <w-input
+    <w-select
       shadow
       class="mb3 xs2 pa1"
-      type="number"
+      :items="levels"
       label="Level"
       placeholder="Level"
     >
-    </w-input>
-    <w-input
+    </w-select>
+    <w-select
       shadow
       class="mb3 xs6 sm3 pa1"
+      :items="backgrounds"
       label="Background"
       placeholder="Background"
     >
-    </w-input>
-    <w-input shadow class="mb3 xs6 sm3 pa1" label="Race" placeholder="Race">
-    </w-input>
-    <w-input
+    </w-select>
+    <w-select
       shadow
       class="mb3 xs6 sm3 pa1"
+      :items="races"
+      label="Race"
+      placeholder="Race"
+    >
+    </w-select>
+    <w-select
+      shadow
+      class="mb3 xs2 pa1"
+      :items="alignment"
       label="Alignment"
       placeholder="Alignment"
     >
-    </w-input>
-    <w-input shadow class="mb3 xs6 sm3 pa1" label="XP" placeholder="XP">
+    </w-select>
+    <w-input
+      shadow
+      class="mb3 xs6 sm3 pa1"
+      type="number"
+      label="XP"
+      placeholder="XP"
+    >
     </w-input>
   </w-flex>
   <w-flex wrap class="text-left">
@@ -446,7 +460,252 @@
 
 <script>
 export default {
-  setup () {}
+  setup () {
+    const levels = [
+      { label: '1' },
+      { label: '2' },
+      { label: '3' },
+      { label: '4' },
+      { label: '5' },
+      { label: '6' },
+      { label: '7' },
+      { label: '8' },
+      { label: '9' },
+      { label: '10' },
+      { label: '11' },
+      { label: '12' },
+      { label: '13' },
+      { label: '14' },
+      { label: '15' },
+      { label: '16' },
+      { label: '17' },
+      { label: '18' },
+      { label: '19' },
+      { label: '20' }
+    ]
+    const alignment = [
+      { label: 'Lawful Good' },
+      { label: 'Neutral Good' },
+      { label: 'Chaotic Good' },
+      { label: 'Lawful Neutral' },
+      { label: 'True Neutral' },
+      { label: 'Chaotic Neutral' },
+      { label: 'Lawful Evil' },
+      { label: 'Neutral Evil' },
+      { label: 'Chaotic Evil' }
+    ]
+    const backgrounds = [
+      { label: 'Acolyte' },
+      { label: 'Acolyte – Baldur’s Gate' },
+      { label: 'Acolyte (Luxonborn)' },
+      { label: 'Anthropologist' },
+      { label: 'Archaeologist' },
+      { label: 'Athlete' },
+      { label: 'Azorius Functionary' },
+      { label: 'Boros Legionnaire' },
+      { label: 'Celebrity Adventurer’s Scion' },
+      { label: 'Charlatan' },
+      { label: 'Charlatan – Baldur’s Gate' },
+      { label: 'City Watch / Investigator' },
+      { label: 'Clan Crafter' },
+      { label: 'Cloistered Scholar' },
+      { label: 'Courtier' },
+      { label: 'Criminal – Baldur’s Gate' },
+      { label: 'Criminal (Myriad Operative)' },
+      { label: 'Criminal / Spy' },
+      { label: 'Dimir Operative' },
+      { label: 'Entertainer' },
+      { label: 'Entertainer – Baldur’s Gate' },
+      { label: 'Faceless' },
+      { label: 'Faction Agent' },
+      { label: 'Failed Merchant' },
+      { label: 'Far Traveler' },
+      { label: 'Fisher' },
+      { label: 'Folk Hero' },
+      { label: 'Folk Hero – Baldur’s Gate' },
+      { label: 'Gambler' },
+      { label: 'Gladiator' },
+      { label: 'Golgari Agent' },
+      { label: 'Grinner' },
+      { label: 'Gruul Anarch' },
+      { label: 'Guild Artisan – Baldur’s Gate' },
+      { label: 'Guild Artisan / Guild Merchant' },
+      { label: 'Haunted One' },
+      { label: 'Hermit' },
+      { label: 'Hermit – Baldur’s Gate' },
+      { label: 'House Agent (Cannith)' },
+      { label: 'House Agent (Deneith)' },
+      { label: 'House Agent (Ghallanda)' },
+      { label: 'House Agent (Jorasco)' },
+      { label: 'House Agent (Kundarak)' },
+      { label: 'House Agent (Lyrandar)' },
+      { label: 'House Agent (Medani)' },
+      { label: 'House Agent (Orien)' },
+      { label: 'House Agent (Phiarlan)' },
+      { label: 'House Agent (Sivis)' },
+      { label: 'House Agent (Tharashk)' },
+      { label: 'House Agent (Thuranni)' },
+      { label: 'House Agent (Vadalis)' },
+      { label: 'Inheritor' },
+      { label: 'Investigator' },
+      { label: 'Izzet Engineer' },
+      { label: 'Knight' },
+      { label: 'Knight of the Order' },
+      { label: 'Marine' },
+      { label: 'Mercenary Veteran' },
+      { label: 'Noble' },
+      { label: 'Noble – Baldur’s Gate' },
+      { label: 'Orzhov Representative' },
+      { label: 'Outlander' },
+      { label: 'Outlander – Baldur’s Gate' },
+      { label: 'Pirate' },
+      { label: 'Plaintiff' },
+      { label: 'Rakdos Cultist' },
+      { label: 'Rival Intern' },
+      { label: 'Sage' },
+      { label: 'Sage – Baldur’s Gate' },
+      { label: 'Sage (Cobalt Scholar)' },
+      { label: 'Sailor' },
+      { label: 'Sailor – Baldur’s Gate' },
+      { label: 'Sailor (Revelry Pirate)' },
+      { label: 'Selesnya Initiate' },
+      { label: 'Shipwright' },
+      { label: 'Simic Scientist' },
+      { label: 'Smuggler' },
+      { label: 'Soldier' },
+      { label: 'Soldier – Baldur’s Gate' },
+      { label: 'Spy (Augen Trust)' },
+      { label: 'Urban Bounty Hunter' },
+      { label: 'Urchin' },
+      { label: 'Urchin – Baldur’s Gate' },
+      { label: 'Uthgardt Tribe Member' },
+      { label: 'Volstrucker Agent' },
+      { label: 'Waterdhavian Noble' }
+    ]
+    const races = [
+      { label: 'Aarakocra' },
+      { label: 'Aasimar' },
+      { label: 'Aasimar (Fallen)' },
+      { label: 'Aasimar (Protector)' },
+      { label: 'Aasimar (Scourge)' },
+      { label: 'Bugbear' },
+      { label: 'Bugbear' },
+      { label: 'Bullywug' },
+      { label: 'Centaur' },
+      { label: 'Centaur' },
+      { label: 'Changeling' },
+      { label: 'Custom Lineage' },
+      { label: 'Dhampir' },
+      { label: 'Dragonborn' },
+      { label: 'Dragonborn (Chromatic)' },
+      { label: 'Dragonborn (Draconblood)' },
+      { label: 'Dragonborn (Gem)' },
+      { label: 'Dragonborn (Metallic)' },
+      { label: 'Dragonborn (Ravenite)' },
+      { label: 'Dwarf (Duergar)' },
+      { label: 'Dwarf (Hill)' },
+      { label: 'Dwarf (Mark of Warding)' },
+      { label: 'Dwarf (Mountain)' },
+      { label: 'Elf (Drow)' },
+      { label: 'Elf (Eladrin)' },
+      { label: 'Elf (High)' },
+      { label: 'Elf (Mark of Shadow)' },
+      { label: 'Elf (Pallid)' },
+      { label: 'Elf (Sea)' },
+      { label: 'Elf (Shadar-kai)' },
+      { label: 'Elf (Wood)' },
+      { label: 'Fairy' },
+      { label: 'Firbolg' },
+      { label: 'Genasi (Air)' },
+      { label: 'Genasi (Earth)' },
+      { label: 'Genasi (Fire)' },
+      { label: 'Genasi (Water)' },
+      { label: 'Gith (Githzerai)' },
+      { label: 'Gnoll' },
+      { label: 'Gnome (Deep)' },
+      { label: 'Gnome (Deep/Svirfneblin)' },
+      { label: 'Gnome (Forest)' },
+      { label: 'Gnome (Mark of Scribing)' },
+      { label: 'Gnome (Rock)' },
+      { label: 'Goblin' },
+      { label: 'Goblin (Dankwood)' },
+      { label: 'Goliath' },
+      { label: 'Grimlock' },
+      { label: 'Grung' },
+      { label: 'Half-Elf' },
+      { label: 'Half-Elf (Variant; Aquatic Elf Descent)' },
+      { label: 'Half-Elf (Variant; Drow Descent)' },
+      { label: 'Half-Elf (Variant; Mark of Detection)' },
+      { label: 'Half-Elf (Variant; Mark of Storm)' },
+      { label: 'Half-Elf (Variant; Moon Elf or Sun Elf Descent)' },
+      { label: 'Half-Elf (Variant; Wood Elf Descent)' },
+      { label: 'Half-Orc' },
+      { label: 'Half-Orc (Mark of Finding)' },
+      { label: 'Halfling (Ghostwise)' },
+      { label: 'Halfling (Lightfoot)' },
+      { label: 'Halfling (Lotusden)' },
+      { label: 'Halfling (Mark of Healing)' },
+      { label: 'Halfling (Mark of Hospitality)' },
+      { label: 'Halfling (Stout)' },
+      { label: 'Harengon' },
+      { label: 'Hexblood' },
+      { label: 'Hobgoblin' },
+      { label: 'Human' },
+      { label: 'Human (Mark of Finding)' },
+      { label: 'Human (Mark of Handling)' },
+      { label: 'Human (Mark of Making)' },
+      { label: 'Human (Mark of Passage)' },
+      { label: 'Human (Mark of Sentinel)' },
+      { label: 'Human (Variant)' },
+      { label: 'Kalashtar' },
+      { label: 'Kenku' },
+      { label: 'Kobold' },
+      { label: 'Leonin' },
+      { label: 'Lizardfolk' },
+      { label: 'Locathah' },
+      { label: 'Loxodon' },
+      { label: 'Minotaur' },
+      { label: 'Orc' },
+      { label: 'Owlin' },
+      { label: 'Reborn' },
+      { label: 'Satyr' },
+      { label: 'Shifter (Beasthide)' },
+      { label: 'Shifter (Longtooth)' },
+      { label: 'Shifter (Swiftstride)' },
+      { label: 'Shifter (Wildhunt)' },
+      { label: 'Simic Hybrid' },
+      { label: 'Skeleton' },
+      { label: 'Tabaxi' },
+      { label: 'Tiefling' },
+      { label: 'Tiefling (Asmodeus)' },
+      { label: 'Tiefling (Baalzebul)' },
+      { label: 'Tiefling (Dispater)' },
+      { label: 'Tiefling (Fierna)' },
+      { label: 'Tiefling (Glasya)' },
+      { label: 'Tiefling (Levistus)' },
+      { label: 'Tiefling (Mammon)' },
+      { label: 'Tiefling (Mephistopheles)' },
+      { label: 'Tiefling (Variant; Devils Tongue)' },
+      { label: 'Tiefling (Variant; Hellfire)' },
+      { label: 'Tiefling (Variant; Infernal Legacy)' },
+      { label: 'Tiefling (Variant; Winged)' },
+      { label: 'Tiefling (Zariel)' },
+      { label: 'Tortle' },
+      { label: 'Triton' },
+      { label: 'Troglodyte' },
+      { label: 'Vedalken' },
+      { label: 'Verdan' },
+      { label: 'Warforged' },
+      { label: 'Yuan-ti Pureblood' },
+      { label: 'Zombie' }
+    ]
+    return {
+      levels,
+      alignment,
+      backgrounds,
+      races
+    }
+  }
 }
 </script>
 

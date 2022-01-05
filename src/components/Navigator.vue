@@ -1,7 +1,7 @@
 <template>
   <w-button class="ma1" @click="openDrawer = 'left'" outline> Menu </w-button>
 
-  <w-drawer v-model="openDrawer" left fit-content>
+  <w-drawer v-model="openDrawer" flex left fit-content>
     <w-button
       @click="openDrawer = false"
       sm
@@ -12,34 +12,70 @@
     >
     </w-button>
     <ul class="navbar-nav mr-auto flex" id="nav">
+      <template v-if="authIsReady">
+        <li
+          class="nav-item"
+          v-for="route in router.options.routes"
+          :key="route.path"
+        >
+          <router-link :to="route" class="nav-link" active-class="active">
+            <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
+            >{{ route.name }}
+          </router-link>
+          <ul v-if="route.path == '/characteroverview'">
+            <li
+              class="nav-item"
+              v-for="route in characterRoutes"
+              :key="route.path"
+            >
+              <router-link :to="route" class="nav-link" active-class="active">
+                <w-icon class="mr1" sm color="primary">
+                  {{ route.icon }} </w-icon
+                >{{ route.name }}
+              </router-link>
+            </li>
+          </ul>
+          <ul v-if="route.path == '/dungeonmasteroverview'">
+            <li class="nav-item" v-for="route in dmRoutes" :key="route.path">
+              <router-link :to="route" class="nav-link" active-class="active">
+                <w-icon class="mr1" sm color="primary">
+                  {{ route.icon }} </w-icon
+                >{{ route.name }}
+              </router-link>
+            </li>
+          </ul>
+        </li>
+      </template>
       <li
         class="nav-item"
         v-for="route in router.options.routes"
         :key="route.path"
       >
-        <router-link :to="route" class="nav-link" active-class="active">
+        <router-link
+          v-if="!user && route.path == 'login'"
+          :to="route"
+          class="nav-link"
+          active-class="active"
+        >
           <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
           >{{ route.name }}
         </router-link>
-        <ul v-if="route.path == '/characteroverview'">
-          <li
-            class="nav-item"
-            v-for="route in characterRoutes"
-            :key="route.path"
-          >
-            <router-link :to="route" class="nav-link" active-class="active">
-              <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
-              >{{ route.name }}
-            </router-link>
+        <router-link
+          v-if="!user && route.path == 'signup'"
+          :to="route"
+          class="nav-link"
+          active-class="active"
+        >
+          <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
+          >{{ route.name }}
+        </router-link>
+      </li>
+      <li v-if="user">
+        <ul>
+          <li>
+            <span>Logged in as {{ user.email }}</span>
           </li>
-        </ul>
-        <ul v-if="route.path == '/dungeonmasteroverview'">
-          <li class="nav-item" v-for="route in dmRoutes" :key="route.path">
-            <router-link :to="route" class="nav-link" active-class="active">
-              <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
-              >{{ route.name }}
-            </router-link>
-          </li>
+          <li><button @click="handleClick">Logout</button></li>
         </ul>
       </li>
     </ul>
@@ -49,17 +85,26 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 
 export default {
   name: 'Overview',
   setup () {
     const router = useRouter()
+    const store = useStore()
+    const handleClick = () => {
+      store.dispatch('logout')
+    }
     const characterRoutes = router.options.routes[3].children
     const dmRoutes = router.options.routes[9].children
     return {
       router,
       characterRoutes,
-      dmRoutes
+      dmRoutes,
+      handleClick,
+      user: computed(() => store.state.user),
+      authIsReady: computed(() => store.state.authIsReady)
     }
   },
   data: () => ({

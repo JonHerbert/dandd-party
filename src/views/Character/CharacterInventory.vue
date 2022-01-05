@@ -66,38 +66,58 @@
       </w-button>
     </template>
   </w-tabs>
+
+  <div>items: {{ inventory }}</div>
+  <button @click="addToInventory('another item')">add an item</button>
+  <button @click="removeFromInventory()">remove an item</button>
 </template>
 
 <script>
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+
 export default {
-  data: () => ({
-    tabs: {
+  setup () {
+    const store = useStore()
+    const inventory = computed(() => store.state.inventories)
+    let editingList = false
+    let editedTitle
+    const fillBar = true
+    const tabs = ref({
       tabsCount: 1,
       transition: 'fade',
       currentTab: 1,
       inventories: []
-    },
-    listItems1: [
+    })
+    const listItems1 = ref([
       { label: 'Item 1', value: 1 },
       { label: 'Item 2', value: 2 },
       { label: 'Item 3', value: 3 },
       { label: 'Item 4', value: 4 },
       { label: 'Item 5', value: 5 }
-    ],
-    baseUrl: 'https://antoniandre.github.io/wave-ui/',
-    editingList: false,
-    editedTitle: null,
-    fillBar: true
-  }),
-  methods: {
-    editListName () {
-      this.editingList = !this.editingList
-      console.log(this.editingList)
+    ])
+    const addToInventory = (item) => {
+      store.commit('addToInventory', item)
     }
-  },
-  computed: {},
-  mounted () {
-    this.editListName()
+    const removeFromInventory = (item) => {
+      store.commit('removeFromInventory', item)
+    }
+    const editListName = () => {
+      editingList = !editingList
+      console.log(editingList)
+    }
+
+    return {
+      inventory,
+      editingList,
+      editedTitle,
+      fillBar,
+      tabs,
+      listItems1,
+      addToInventory,
+      removeFromInventory,
+      editListName
+    }
   }
 }
 </script>
