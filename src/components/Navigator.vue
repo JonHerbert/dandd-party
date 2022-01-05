@@ -18,7 +18,12 @@
           v-for="route in router.options.routes"
           :key="route.path"
         >
-          <router-link :to="route" class="nav-link" active-class="active">
+          <router-link
+            v-if="route.type == 'general'"
+            :to="route"
+            class="nav-link"
+            active-class="active"
+          >
             <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
             >{{ route.name }}
           </router-link>
@@ -44,40 +49,42 @@
               </router-link>
             </li>
           </ul>
+          <ul v-if="!user && route.type == 'login'">
+            <li>
+              <router-link
+                v-if="route.path == '/login'"
+                :to="route"
+                class="nav-link"
+                active-class="active"
+              >
+                <w-icon class="mr1" sm color="primary">
+                  {{ route.icon }} </w-icon
+                >{{ route.name }}
+              </router-link>
+            </li>
+            <li>
+              <router-link
+                v-if="route.path == '/signup'"
+                :to="route"
+                class="nav-link"
+                active-class="active"
+              >
+                <w-icon class="mr1" sm color="primary">
+                  {{ route.icon }} </w-icon
+                >{{ route.name }}
+              </router-link>
+            </li>
+          </ul>
         </li>
       </template>
-      <li
-        class="nav-item"
-        v-for="route in router.options.routes"
-        :key="route.path"
-      >
-        <router-link
-          v-if="!user && route.path == 'login'"
-          :to="route"
-          class="nav-link"
-          active-class="active"
-        >
-          <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
-          >{{ route.name }}
-        </router-link>
-        <router-link
-          v-if="!user && route.path == 'signup'"
-          :to="route"
-          class="nav-link"
-          active-class="active"
-        >
-          <w-icon class="mr1" sm color="primary"> {{ route.icon }} </w-icon
-          >{{ route.name }}
-        </router-link>
-      </li>
-      <li v-if="user">
+      <template v-if="user">
         <ul>
           <li>
             <span>Logged in as {{ user.email }}</span>
           </li>
           <li><button @click="handleClick">Logout</button></li>
         </ul>
-      </li>
+      </template>
     </ul>
   </w-drawer>
   <router-view />

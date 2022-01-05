@@ -6,19 +6,22 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    icon: 'fas fa-home'
+    icon: 'fas fa-home',
+    type: 'general'
   },
   {
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    icon: 'fas fa-dice-d20'
+    icon: 'fas fa-dice-d20',
+    type: 'general'
   },
   {
     path: '/calendar',
     name: 'Calendar',
     component: () => import(/* webpackChunkName: "calendar" */ '../views/Calendar.vue'),
-    icon: 'fas fa-dice-d20'
+    icon: 'fas fa-dice-d20',
+    type: 'general'
   },
   {
     path: '/characteroverview',
@@ -26,6 +29,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "charOver" */ '../views/Character/CharacterOverview.vue'),
     props: true,
     icon: 'fas fa-scroll',
+    type: 'general',
     children: [
       {
         path: '/characterinventory',
@@ -69,37 +73,43 @@ const routes = [
     path: '/knowledgebase',
     name: 'Knowledge Base',
     component: () => import(/* webpackChunkName: "knowledgeBase" */ '../views/Knowledge/KnowledgeBase.vue'),
-    icon: 'fas fa-dungeon'
+    icon: 'fas fa-dungeon',
+    type: 'general'
   },
   {
     path: '/chat',
     name: 'Chat',
     component: () => import(/* webpackChunkName: "chat" */ '../views/Party/Chat.vue'),
-    icon: 'fa fa-home'
+    icon: 'fa fa-home',
+    type: 'general'
   },
   {
     path: '/groupinventory',
     name: 'Group Inventory',
     component: () => import(/* webpackChunkName: "groupInventory" */ '../views/Party/GroupInventory.vue'),
-    icon: 'fa fa-home'
+    icon: 'fa fa-home',
+    type: 'general'
   },
   {
     path: '/groupnotes',
     name: 'Group Notes',
     component: () => import(/* webpackChunkName: "groupNotes" */ '../views/Party/GroupNotes.vue'),
-    icon: 'fa fa-home'
+    icon: 'fa fa-home',
+    type: 'general'
   },
   {
     path: '/lobby',
     name: 'Lobby',
     component: () => import(/* webpackChunkName: "lobby" */ '../views/Party/Lobby.vue'),
-    icon: 'fa fa-home'
+    icon: 'fa fa-home',
+    type: 'general'
   },
   {
     path: '/dungeonmasteroverview',
     name: 'DM Overview',
     component: () => import(/* webpackChunkName: "dmOverview" */ '../views/DungeonMaster/DMOverview.vue'),
     icon: 'fa fa-home',
+    type: 'general',
     children: [
       {
         path: '/dmfightclub',
@@ -125,13 +135,15 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: () => import(/* webpackChunkName: "signup" */ '../views/Signup.vue'),
-    icon: 'fa fa-home'
+    icon: 'fa fa-home',
+    type: 'login'
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
-    icon: 'fa fa-home'
+    icon: 'fa fa-home',
+    type: 'login'
   }
 ]
 
