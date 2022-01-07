@@ -1,7 +1,8 @@
 import { createStore } from 'vuex'
 
 // firebase imports
-import { auth } from '../firebase/config'
+import { auth, database } from '../firebase/config'
+import { onValue } from 'firebase/database'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -14,6 +15,7 @@ const store = createStore({
     // AUTH
     user: null,
     authIsReady: false,
+    database,
 
     // INVENTORY
     inventories: []
@@ -33,6 +35,9 @@ const store = createStore({
     },
     removeFromInventory (state, payload) {
       state.inventories.pop(payload)
+    },
+    setDatabase (state, payload) {
+      state.database = payload
     }
   },
   // Async code goes here ->
@@ -57,6 +62,11 @@ const store = createStore({
     async logout (context) {
       await signOut(auth)
       context.commit('setUser', null)
+    },
+    async returnDatabase (context) {
+      onValue(database, (snapshot) => {
+        context.commit('setDatabase', snapshot.val())
+      })
     }
   },
   modules: {
