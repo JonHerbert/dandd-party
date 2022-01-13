@@ -9,10 +9,10 @@
     />
   </div>
   <div>{{ search }}</div>
-  <div>{{ searchFunction }}</div>
+  <!-- <div>{{ searchFunction }}</div>
   <div v-for="key in searchFunction" :key="key">
     <div>{{ key }}</div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -25,20 +25,30 @@ export default {
     store.dispatch('returnDatabase')
     const db = store.state.database
     const search = ref('')
-    const searchFunction = computed(() => {
-      if (!search.value) {
-        return db
-      } else {
-        const filter = Object.entries(db).filter(
-          ([key, value]) => key === search.value
-        )
-        return filter
-      }
+    // const searchFunction = computed(() => {
+    //   if (!search.value) {
+    //     return db
+    //   } else {
+    //     const filter = Object.entries(db).filter(
+    //       ([key, value]) => key === search.value
+    //     )
+    //     return filter
+    //   }
+    // })
+    const jsonGetAllKeys = computed((db) => {
+      return db.reduce(
+        (keys, obj) =>
+          keys.concat(
+            Object.keys(obj).filter((key) => keys.indexOf(key) === -1)
+          ),
+        []
+      )
     })
+    console.log(jsonGetAllKeys)
     return {
       db,
-      search,
-      searchFunction
+      search
+      // searchFunction
     }
   }
 }
